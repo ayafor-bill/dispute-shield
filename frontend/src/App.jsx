@@ -252,7 +252,7 @@ function Brand({ compact = false }) {
     <div className={compact ? "" : "px-6 pt-7"}>
       <div className="flex items-center gap-3">
         <img
-          src="/images/disputeshield-mark.svg"
+          src="/images/dispute-shield-logo.svg"
           className="h-9 w-9 drop-shadow-lg"
           alt="DisputeShield"
         />
