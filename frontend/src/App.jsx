@@ -249,7 +249,7 @@ function App() {
 
 function Brand({ compact = false }) {
   return (
-    <div className={compact ? "" : "px-6"}>
+    <div className={compact ? "" : "px-6 py-7"}>
       <div className="flex flex-col items-center gap-3">
         <img
           src="/images/dispute-shield-logo.svg"
@@ -777,7 +777,9 @@ function AuthScreen({ onComplete }) {
         />
         <div className="absolute inset-0 bg-gradient-to-br from-ink/95 via-ink/85 to-ink/98" />
         <div className="relative z-10 flex w-full flex-col justify-between p-12 text-paper">
-          <Brand compact />
+          <div className="relative z-10 flex w-full flex-col justify-between p-12 text-paper">
+              <Brand compact />
+          </div>
           <div>
             <p className="font-mono text-sm font-semibold tracking-[0.25em] text-brass">
               DISPUTE RESPONSE, SIMPLIFIED
