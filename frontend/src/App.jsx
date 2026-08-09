@@ -253,7 +253,7 @@ function Brand({ compact = false }) {
       <div className="flex items-center gap-3">
         <img
           src="/images/dispute-shield-logo.svg"
-          className="h-9 w-9 drop-shadow-lg"
+          className="h-11 w-11 drop-shadow-lg"
           alt="DisputeShield"
         />
         {!compact && (
