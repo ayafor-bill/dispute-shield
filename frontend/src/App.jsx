@@ -250,14 +250,14 @@ function App() {
 function Brand({ compact = false }) {
   return (
     <div className={compact ? "" : "px-6 pt-7"}>
-      <div className="flex items-center gap-3">
+      <div className="flex flex-col items-center gap-3">
         <img
           src="/images/dispute-shield-logo.svg"
           className="h-11 w-11 drop-shadow-lg"
           alt="DisputeShield"
         />
         {!compact && (
-          <span className="font-display text-lg font-semibold tracking-tight text-paper">
+          <span className="font-display text-sm font-semibold tracking-tight text-paper">
             DisputeShield
           </span>
         )}
