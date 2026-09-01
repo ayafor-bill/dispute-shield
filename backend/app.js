@@ -20,6 +20,9 @@ app.use('/auth', require('./routes/auth'));
 app.use('/disputes', require('./routes/disputes'));
 app.use('/orders', require('./routes/orders'));
 
+// For testing
+app.use('/well-known', express.static(path.join(__dirname, 'well-known')));
+
 // 404
 app.use((req, res) => res.status(404).json({ error: 'Not found' }));
 
@@ -28,7 +31,5 @@ app.use((err, req, res, next) => {
   console.error(err);
   res.status(err.status || 500).json({ error: err.message || 'Internal server error' });
 });
-
-app.use('/well-known', express.static(path.join(__dirname, 'well-known')));
 
 module.exports = app;
