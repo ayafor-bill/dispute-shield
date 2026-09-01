@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
+const path = require('path');
 
 const app = express();
 
@@ -28,7 +29,6 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).json({ error: err.message || 'Internal server error' });
 });
 
-const path = require('path');
 app.use('/.well-known', express.static(path.join(__dirname, 'well-known')));
 
 module.exports = app;
