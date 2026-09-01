@@ -28,4 +28,7 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).json({ error: err.message || 'Internal server error' });
 });
 
+const path = require('path');
+app.use('/.well-known', express.static(path.join(__dirname, 'well-known')));
+
 module.exports = app;
